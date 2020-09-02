@@ -1,38 +1,35 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const App = () => {
-  const [count, setCount] = useState(0);
-  const increment = () => { setCount(count + 1 ) }
-  const decrement = () => { setCount(count - 1 ) }
+const useInput = (initialValue, validator) => {
+  const [value, setValue] = useState(initialValue);
+  const onChange = (e) => {
+    const {
+      target: { value },
+    } = e;
 
+    let willUpdate = true;
+    if (typeof validator == "function") {
+      willUpdate = validator(value);
+    }
+    if (willUpdate) {
+      setValue(value);
+    }
+  };
+  return { value, onChange };
+};
+
+const App = () => {
+  const maxLen = (value) => !(value.includes("<") || value.includes(">"));
+  const name = useInput("Mr.", maxLen);
   return (
     <>
-    <button onClick={decrement}>-</button>
-    {count}
-    <button onClick={increment}>+</button>
+      <div className="App">
+        <h1>Hello!</h1>
+        <input placeholder="Name" {...name} />
+      </div>
     </>
   );
-}
+};
 
-class AppUgly extends React.Component {
-  state = {
-    count: 0
-  }
-
-  increment = () => {this.setState(state => {return { count: state.count + 1}})}
-  decrement = () => {this.setState(state => {return { count: state.count - 1}})}
-
-  render() {
-    const { count } = this.state;
-    return (
-      <>
-      <button onClick={this.decrement}>-</button>
-      {count}
-      <button onClick={this.increment}>+</button>
-      </>
-    );
-  }
-}
-
-export default AppUgly;
+export default App;

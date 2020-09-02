@@ -1,0 +1,36 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.suggestSelection": "first",
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "python.languageServer": "Microsoft",
+  "python.experiments.optOutFrom": [],
+  "python.formatting.blackArgs": ["--line-length", "100"],
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.trailingComma": "es5",
+  "prettier.disableLanguages": ["vue"],
+  "prettier.printWidth": 140,
+  "prettier.tabWidth": 2,
+  "prettier.endOfLine": "auto",
+  "prettier.singleQuote": false,
+  "prettier.useTabs": false,
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.format.enable": true,
+  "python.showStartPage": false,
+  "files.associations": {
+    "*.html": "html"
+  },
+  "java.semanticHighlighting.enabled": true,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  }
+}
