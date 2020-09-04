@@ -1,46 +1,23 @@
 import React, { useState } from "react";
-import "./App.css";
 
-const content = [
+const item = [
   {
-    tab: "Section1",
-    content: "I'm the content for Section1",
+    index: "Section1",
+    content: "This is the Content of Section 1",
   },
-
   {
-    tab: "Section2",
-    content: "I'm the content for Section2",
+    index: "Section2",
+    content: "This is the Content of Section 2",
   },
 ];
 
 const useTabs = (initialTab, allTabs) => {
-  const [currentIndex, setCurrentIndex] = useState(initialTab);
-  if (!allTabs || !Array.isArray(allTabs)) {
-    return;
-  }
-  return {
-    currentItem: allTabs[currentIndex],
-    changeItem: setCurrentIndex,
-  };
+  const [item, setItem] = useState(initialTab);
+  return allTabs.initialTab;
 };
 
 const App = () => {
-  const { currentItem, changeItem } = useTabs(0, content);
-  return (
-    <div className="App">
-      {content.map((section, index) => (
-        <button
-          onClick={() => {
-            changeItem(index);
-          }}
-        >
-          {section.tab}
-        </button>
-      ))}
-
-      <div className="content">{currentItem.content}</div>
-    </div>
-  );
+  return <div className="App"></div>;
 };
 
 export default App;
