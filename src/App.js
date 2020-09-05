@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
-const useTitle = (initialTitle) => {
-  const [title, setTitle] = useState(initialTitle);
-  const updateTitle = () => {
-    const htmlTitle = document.querySelector("title");
-    htmlTitle.innerText = title;
-  };
-  useEffect(updateTitle, [title]);
-  return setTitle;
+const useClick = (onClick) => {
+  const el = useRef();
+  useEffect(() => {
+    if (typeof onClick !== "function") {
+      return;
+    }
+    if (el.current) {
+      el.current.addEventListener("click", onClick);
+    }
+    return (el) => {
+      if (el.current) {
+        el.current.removeEventListener("click", onClick);
+      }
+    };
+  }, []);
+  return el;
 };
 
 const App = () => {
-  const titleUpdater = useTitle("Loading...");
-  // setTimeout(() => titleUpdater("Home"), 3000);
+  const div = useClick(() => {
+    console.log(div.current);
+  });
+
   return (
     <>
-      <input placeholder="Please put a title" />
-      <button
-        onClick={() => {
-          const inputValue = document.querySelector("input").value;
-          titleUpdater(inputValue);
-        }}
-      >
-        이름 바꾸기
-      </button>
+      <div ref={div}>Hello</div>
     </>
   );
 };
