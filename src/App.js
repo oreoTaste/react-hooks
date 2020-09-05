@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 
-const App = () => {
-  const DidMount = () => {
-    console.log("Component Did Mount!");
+const useTitle = (initialTitle) => {
+  const [title, setTitle] = useState(initialTitle);
+  const updateTitle = () => {
+    const htmlTitle = document.querySelector("title");
+    htmlTitle.innerText = title;
   };
-  useEffect(DidMount, []);
+  useEffect(updateTitle, [title]);
+  return setTitle;
+};
 
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-
+const App = () => {
+  const titleUpdater = useTitle("Loading...");
+  // setTimeout(() => titleUpdater("Home"), 3000);
   return (
     <>
-      <div>Hello</div>
+      <input placeholder="Please put a title" />
       <button
         onClick={() => {
-          setNum1(num1 + 1);
+          const inputValue = document.querySelector("input").value;
+          titleUpdater(inputValue);
         }}
       >
-        {num1}
-      </button>
-      <button
-        onClick={() => {
-          setNum2(num2 + 1);
-        }}
-      >
-        {num2}
+        이름 바꾸기
       </button>
     </>
   );
