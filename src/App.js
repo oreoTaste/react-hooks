@@ -2,6 +2,7 @@ import React from "react";
 import useInput from "./useInput";
 import useTabs from "./useTabs";
 import useTitle from "./useTitle";
+import useClick from "./useClick";
 
 const contents = [
   {
@@ -21,10 +22,18 @@ const App = () => {
   const myinput = useInput("", validator);
 
   const { currentItem, changeItem } = useTabs(0, contents);
+  const showDate_func = () => {
+    document.querySelector(".current_time").innerHTML = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+  };
+  const showDate = useClick(showDate_func);
 
   setTimeout(() => titleUpdator("Loaded"), 500);
   return (
     <>
+      <p>
+        <button ref={showDate}>Now Button</button>
+        <span className="current_time"></span>
+      </p>
       <input placeholder="please type your name" {...myinput} />
       <p>
         {contents.map((content, index) => (
