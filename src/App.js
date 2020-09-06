@@ -1,27 +1,37 @@
 import React from "react";
 
-const useConfirm = (message = "", callback, rejection) => {
-  if (!callback || typeof callback !== "function" || (rejection && typeof rejection !== "function")) {
-    return;
-  }
-  const confirmAction = () => {
-    if (window.confirm(message)) {
-      callback();
+const useConfirm = (msg = "", callback, reject) => {
+  const myconfirm = () => {
+    if (window.confirm(msg)) {
+      if (typeof callback === "function") callback();
     } else {
-      rejection();
+      if (typeof reject === "function") reject();
     }
   };
-  return confirmAction;
+  return myconfirm;
+};
+
+const usePreventLeave = () => {
+  const listener = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+  const enablePrevent = () => window.addEventListener("beforeunload", listener);
+  const disablePrevent = () => window.removeEventListener("beforeunload", listener);
+
+  return { enablePrevent, disablePrevent };
 };
 
 const App = () => {
-  const confirmed = () => console.log("btn clicked");
-  const cancelled = () => console.log("cancelled");
-
-  const confirmBtn = useConfirm("are you sure", confirmed, cancelled);
+  const { enablePrevent, disablePrevent } = usePreventLeave();
+  const callback = () => console.log("confirmed");
+  const reject = () => console.log("rejected");
+  const deleteWorld = useConfirm("are you sure?", callback, reject);
   return (
     <>
-      <button onClick={confirmBtn}>Click!</button>
+      <button onClick={enablePrevent}>Protect!</button>
+      <button onClick={disablePrevent}>UnProtect!</button>
+      <button onClick={deleteWorld}>check!</button>
     </>
   );
 };
