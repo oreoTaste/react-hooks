@@ -3,6 +3,7 @@ import useInput from "./useInput";
 import useTabs from "./useTabs";
 import useTitle from "./useTitle";
 import useClick from "./useClick";
+import useConfirm from "./useConfirm";
 
 const contents = [
   {
@@ -27,9 +28,16 @@ const App = () => {
   };
   const showDate = useClick(showDate_func);
 
+  const trig_confirm = useConfirm(
+    "are you sure?",
+    () => console.log("the world is deleted"),
+    () => console.log("the world is protected")
+  );
+
   setTimeout(() => titleUpdator("Loaded"), 500);
   return (
     <>
+      <button onClick={trig_confirm}>confirmation test</button>
       <p>
         <button ref={showDate}>Now Button</button>
         <span className="current_time"></span>
