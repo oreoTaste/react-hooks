@@ -10,7 +10,7 @@ const useFadeIn = (time = 0, delay = 0) => {
     else fade_str += ` cubic-bezier(0,0,1,1) ${delay}s`;
     el.current.style.opacity = 1;
     el.current.style.transition = fade_str;
-  }, []);
+  }, [time, delay]);
 
   return { ref: el, style: { opacity: 0 } };
 };
