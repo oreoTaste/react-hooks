@@ -4,6 +4,8 @@ import useTabs from "./useTabs";
 import useTitle from "./useTitle";
 import useClick from "./useClick";
 import useConfirm from "./useConfirm";
+import usePreventLeave from "./usePreventLeave";
+import useBeforeLeave from "./useBeforeLeave";
 
 const contents = [
   {
@@ -34,9 +36,15 @@ const App = () => {
     () => console.log("the world is protected")
   );
 
+  const { enablePrevent, disablePrevent } = usePreventLeave();
+  useBeforeLeave(() => console.log("don't leave"));
   setTimeout(() => titleUpdator("Loaded"), 500);
   return (
     <>
+      <p>
+        <button onClick={enablePrevent}>창닫기전 확인!</button>
+        <button onClick={disablePrevent}>창닫기전 확인안함!</button>
+      </p>
       <button onClick={trig_confirm}>confirmation test</button>
       <p>
         <button ref={showDate}>Now Button</button>
@@ -45,7 +53,9 @@ const App = () => {
       <input placeholder="please type your name" {...myinput} />
       <p>
         {contents.map((content, index) => (
-          <button onClick={() => changeItem(index)}>{content.header}</button>
+          <button key={index} onClick={() => changeItem(index)}>
+            {content.header}
+          </button>
         ))}
       </p>
       <p>{currentItem.body}</p>
